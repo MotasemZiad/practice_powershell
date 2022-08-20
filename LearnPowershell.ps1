@@ -1,5 +1,3 @@
-
-
 # Single line comments start with a number symbol.
 
 <#
@@ -36,7 +34,7 @@ $result # => 2
 7 % 3  # => 1
 
 # Exponentiation requires longform or the built-in [Math] class.
-[Math]::Pow(2,3)  # => 8
+[Math]::Pow(2, 3)  # => 8
 
 # Enforce order of operations with parentheses.
 1 + 3 * 2  # => 7
@@ -100,13 +98,14 @@ $False - 5   # => -5
 # Note: we called '[Math]' from .NET previously without the preceeding
 # namespaces. We can do the same with [Collections.ArrayList] if preferred.
 [System.Collections.ArrayList]$a = @()  # Point a at a new list
-$a = (1,2,3,4)
+$a = (1, 2, 3, 4)
 $b = $a                                 # => Point b at what a is pointing to
 $b -is $a.GetType()                     # => True, a and b equal same type
 $b -eq $a                               # => True, a and b values are equal
 [System.Collections.Hashtable]$b = @{}  # => Point a at a new hash table
 $b = @{'one' = 1 
-       'two' = 2}
+    'two'    = 2
+}
 $b -is $a.GetType()                     # => False, a and b types not equal
 
 # Strings are created with " or ' but " is required for string interpolation
@@ -150,12 +149,12 @@ $null  # => None
 # $null, 0, and empty strings and arrays all evaluate to False.
 # All other values are True
 function Test-Value ($value) {
-  if ($value) {
-    Write-Output 'True'
-  }
-  else {
-    Write-Output 'False'
-  }
+    if ($value) {
+        Write-Output 'True'
+    }
+    else {
+        Write-Output 'False'
+    }
 }
 
 Test-Value ($null) # => False
@@ -186,11 +185,11 @@ $someVariable  # => 5
 # The value is $null by default
 
 # Ternary Operators exist in Powershell 7 and up
-0 ? 'yes' : 'no'  # => no
+Write-Output 0 ? 'yes' : 'no'  # => no
 
 
 # The default array object in Powershell is an fixed length array.
-$defaultArray = "thing","thing2","thing3"
+$defaultArray = "thing", "thing2", "thing3"
 # you can add objects with '+=', but cannot remove objects.
 $defaultArray.Add("thing4") # => Exception "Collection was of a fixed size."
 # To have a more workable array, you'll want the .NET [ArrayList] class
@@ -207,7 +206,7 @@ $array.Add(2) > $null    # $array is now [1, 2]
 $array.Add(4) > $null    # $array is now [1, 2, 4]
 $array.Add(3) > $null    # $array is now [1, 2, 4, 3]
 # Remove from end with index of count of objects-1; array index starts at 0
-$array.RemoveAt($array.Count-1) # => 3 and array is now [1, 2, 4]
+$array.RemoveAt($array.Count - 1) # => 3 and array is now [1, 2, 4]
 # Let's put it back
 $array.Add(3) > $null   # array is now [1, 2, 4, 3] again.
 
@@ -269,9 +268,10 @@ $tuple[0..2]        # => $null
 # Hashtables store mappings from keys to values, similar to Dictionaries.
 $emptyHash = @{}
 # Here is a prefilled dictionary
-$filledHash = @{"one"= 1 
-                "two"= 2 
-                "three"= 3}
+$filledHash = @{"one" = 1 
+    "two"             = 2 
+    "three"           = 3
+}
 
 # Look up values with []
 $filledHash["one"]  # => 1
@@ -291,8 +291,8 @@ $filledHash.Values  # => [1, 2, 3]
 $filledHash["four"]  # $null
 
 # Adding to a dictionary
-$filledHash.Add("five",5)  # $filledHash["five"] is set to 5
-$filledHash.Add("five",6)  # exception "Item with key "five" has already been added"
+$filledHash.Add("five", 5)  # $filledHash["five"] is set to 5
+$filledHash.Add("five", 6)  # exception "Item with key "five" has already been added"
 $filledHash["four"] = 4 # $filledHash["four"] is set to 4, running again does nothing
 
 # Remove keys from a dictionary with del
@@ -311,10 +311,12 @@ $someVar = 5
 if ($someVar -gt 10) {
     Write-Output "$someVar is bigger than 10."
 }
-elseif ($someVar -lt 10) {    # This elseif clause is optional.
+elseif ($someVar -lt 10) {
+    # This elseif clause is optional.
     Write-Output "$someVar is smaller than 10."
 }
-else {                        # This is optional too.
+else {
+    # This is optional too.
     Write-Output "$someVar is indeed 10."
 }
 
@@ -343,8 +345,8 @@ prints:
    6 g
    7 h
 #>
-$letters = ('a','b','c','d','e','f','g','h')
-for($i=0; $i -le $letters.Count-1; $i++){
+$letters = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
+for ($i = 0; $i -le $letters.Count - 1; $i++) {
     Write-Host $i, $letters[$i]
 }
 
@@ -364,13 +366,13 @@ while ($x -lt 4) {
 
 # Switch statements are more powerful compared to most languages
 $val = "20"
-switch($val) {
-  { $_ -eq 42 }           { "The answer equals 42"; break }
-  '20'                    { "Exactly 20"; break }
-  { $_ -like 's*' }       { "Case insensitive"; break }
-  { $_ -clike 's*'}       { "clike, ceq, cne for case sensitive"; break }
-  { $_ -notmatch '^.*$'}  { "Regex matching. cnotmatch, cnotlike, ..."; break }
-  default                 { "Others" }
+switch ($val) {
+    { $_ -eq 42 } { "The answer equals 42"; break }
+    '20' { "Exactly 20"; break }
+    { $_ -like 's*' } { "Case insensitive"; break }
+    { $_ -clike 's*' } { "clike, ceq, cne for case sensitive"; break }
+    { $_ -notmatch '^.*$' } { "Regex matching. cnotmatch, cnotlike, ..."; break }
+    default { "Others" }
 }
 
 # Handle exceptions with a try/catch block
@@ -387,8 +389,9 @@ finally {
 
 
 # Writing to a file
-$contents = @{"aa"= 12 
-             "bb"= 21}
+$contents = @{"aa" = 12 
+    "bb"           = 21
+}
 $contents | Export-CSV "$env:HOMEDRIVE\file.csv" # writes to a file
 
 $contents = "test string here"
@@ -405,15 +408,15 @@ Get-Content "$env:HOMEDRIVE\file.csv" | ConvertTo-Json
 # Use "function" to create new functions
 # Keep the Verb-Noun naming convention for functions
 function Add-Numbers {
- $args[0] + $args[1]
+    $args[0] + $args[1]
 }
 
 Add-Numbers 1 2 # => 3
 
 # Calling functions with parameters
 function Add-ParamNumbers {
- param( [int]$firstNumber, [int]$secondNumber )
- $firstNumber + $secondNumber
+    param( [int]$firstNumber, [int]$secondNumber )
+    $firstNumber + $secondNumber
 }
 
 Add-ParamNumbers -FirstNumber 1 -SecondNumber 2 # => 3 
@@ -435,10 +438,10 @@ New-Website siteName 2000 # ERROR! Port argument could not be validated
 function New-Website() {
     [CmdletBinding()]
     param (
-        [Parameter(ValueFromPipeline=$true, Mandatory=$true)]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [Alias('name')]
         [string]$siteName,
-        [ValidateSet(3000,5000,8000)]
+        [ValidateSet(3000, 5000, 8000)]
         [int]$port = 3000
     )
     BEGIN { Write-Output 'Creating new website(s)' }
@@ -508,8 +511,7 @@ String Instrument Plucked String
 # Inheritance allows new child classes to be defined that inherit 
 # methods and variables from their parent class.
 
-class Guitar : Instrument
-{
+class Guitar : Instrument {
     [string]$Brand
     [string]$SubType
     [string]$ModelType
@@ -517,9 +519,9 @@ class Guitar : Instrument
 }
 
 $myGuitar = [Guitar]::new()
-$myGuitar.Brand       = "Taylor"
-$myGuitar.SubType     = "Acoustic"
-$myGuitar.ModelType   = "Presentation"
+$myGuitar.Brand = "Taylor"
+$myGuitar.SubType = "Acoustic"
+$myGuitar.ModelType = "Presentation"
 $myGuitar.ModelNumber = "PS14ce Blackwood"
 
 $myGuitar.GetType()
@@ -568,7 +570,7 @@ Get-Process | Foreach-Object ProcessName | Group-Object
 $installedApps = Get-CimInstance -ClassName Win32_Product
 
 # If we had a script, it would hang at this func for a period of time.
-$scriptBlock = {Get-CimInstance -ClassName Win32_Product}
+$scriptBlock = { Get-CimInstance -ClassName Win32_Product }
 Start-Job -ScriptBlock $scriptBlock
 
 # This will start a background job that runs the command.
@@ -578,10 +580,10 @@ $jobResponse = Get-Job | Receive-Job
 
 
 # Math is built in to powershell and has many functions.
-$r=2
-$pi=[math]::pi
-$r2=[math]::pow( $r, 2 )
-$area = $pi*$r2
+$r = 2
+$pi = [math]::pi
+$r2 = [math]::pow( $r, 2 )
+$area = $pi * $r2
 $area
 
 # To see all possibilities, check the members.
@@ -596,7 +598,7 @@ $area
  Let's see one way to do that and introduce another data structure.
 #>
 
-$targetArray = 'a','b','c','d','e','f','g','h','i','j','k','l','m'
+$targetArray = 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 
 function Format-Range ($start, $end, $array) {
     [System.Collections.ArrayList]$firstSectionArray = @()
@@ -626,15 +628,14 @@ Format-Range 2 6 $targetArray
 # This is slightly faster as well.
 
 function Format-Range ($start, $end) {
-  while ($start -lt $end)
-  {
-      $temp = $targetArray[$start]
-      $targetArray[$start] = $targetArray[$end]
-      $targetArray[$end] = $temp
-      $start++
-      $end--
-  }
-  return $targetArray
+    while ($start -lt $end) {
+        $temp = $targetArray[$start]
+        $targetArray[$start] = $targetArray[$end]
+        $targetArray[$end] = $temp
+        $start++
+        $end--
+    }
+    return $targetArray
 }
 
 Format-Range 2 6 # => 'a','b','g','f','e','d','c','h','i','j','k','l','m'
@@ -686,7 +687,7 @@ C:\Program Files\dotnet\dotnet.exe    # returns string rather than execute
 # One usage of '&' would be to invoke a scriptblock inside of your script.
 # Notice the variables are scoped
 $i = 2
-$scriptBlock = { $i=5; Write-Output $i }
+$scriptBlock = { $i = 5; Write-Output $i }
 & $scriptBlock # => 5
 $i # => 2
 
@@ -695,10 +696,10 @@ $i # => 5
 
 # Alternatively, to preserve changes to public variables
 # you can use "Dot-Sourcing". This will run in the current scope.
-$x=1
-&{$x=2};$x # => 1
+$x = 1
+& { $x = 2 }; $x # => 1
 
-.{$x=2};$x # => 2
+. { $x = 2 }; $x # => 2
 
 
 # Remoting into computers is easy.
@@ -743,11 +744,11 @@ $serverList = @(
 
 foreach ($server in $serverList) {
     $cmdSplat = @{
-        ComputerName  = $server
-        JobName       = 'checkService'
-        ScriptBlock   = $script
-        AsJob         = $true
-        ErrorAction   = 'SilentlyContinue'
+        ComputerName = $server
+        JobName      = 'checkService'
+        ScriptBlock  = $script
+        AsJob        = $true
+        ErrorAction  = 'SilentlyContinue'
     }
     Invoke-Command @cmdSplat | Out-Null
 }
