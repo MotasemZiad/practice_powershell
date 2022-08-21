@@ -185,7 +185,7 @@ $someVariable  # => 5
 # The value is $null by default
 
 # Ternary Operators exist in Powershell 7 and up
-Write-Output 0 ? 'yes' : 'no'  # => no
+0 ? 'yes' : 'no'  # => no
 
 
 # The default array object in Powershell is an fixed length array.
